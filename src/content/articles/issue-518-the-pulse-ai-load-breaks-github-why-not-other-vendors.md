@@ -1,20 +1,19 @@
 ---
 title: "The Pulse: AI load breaks GitHub – why not other vendors?"
-titleCn: "深度分析：AI 负载为何压垮 GitHub，而非其他厂商？"
+titleCn: "脉动：AI负载压垮GitHub——为何其他供应商没有？"
 url: "https://blog.pragmaticengineer.com/the-pulse-ai-load-breaks-github/"
 issueNumber: 518
 issueDate: "2026-05-25T01:28:18.000Z"
-category: "performance"
+category: "platform-engineering"
 tags:
-  - "容量规划"
+  - "GitHub事件"
   - "AI负载"
-  - "GitHub故障"
-  - "压力测试"
-  - "架构扩展性"
+  - "流量治理"
+  - "API可靠性"
 score: 9
 summary: "A thoughtful analysis of GitHub’s availability trouble of late, including some excellent reporting work to get more details on a growth graph previously shared by GitHub. Gergely Orosz — The Pragmatic Engineer"
-summaryCn: "本文对 GitHub 近期因 AI 驱动的流量激增而导致的可用性问题进行了深度技术归因分析。GitHub Copilot 等 AI 编程工具产生的海量、低延迟、高并发的 API 请求，其流量模式（如大量小请求、持续的上下文同步）与传统的 Git 操作截然不同，对后端服务的连接池、缓存层和数据库造成了非预期的冲击。文章指出，其他云厂商（如 AWS CodeCommit, GitLab）服务相对稳定的原因在于：1) **架构差异**：GitHub 的某些核心服务（如 git 数据后端）可能采用了更紧耦合或未经针对性扩容的单体/微服务设计；2) **流量特征预测不足**：AI 负载的突发性和模式多样性超出了传统容量规划模型的假设；3) **技术债**：GitHub 部分基础设施的扩展路径（如从 MySQL 分片到 Vitess）可能尚未完全覆盖 AI 负载的热点路径。核心启示：在部署具有颠覆性流量特征的 AI 功能前，必须进行**针对性压力测试**，模拟真实流量模式，并审查关键依赖的扩展性。容量规划模型需要纳入 AI 负载的‘突发性’和‘请求密度’作为新的维度。"
-commentary: "案例研究价值极高，它从一次具体故障抽象出 AI 时代容量规划的新范式。提醒所有集成 AI 功能的服务提供商，不能沿用旧有的流量假设，必须重新审视基础架构的弹性设计。"
+summaryCn: "文章深度剖析了GitHub近期因AI负载（如Copilot大规模代码补全请求）导致的可用性问题。GitHub的架构瓶颈在于其**共享租户模型**：所有用户（包括AI代理）共享同一套API网关、速率限制和核心服务资源池。当AI生成的请求量呈指数增长时，传统为人类交互模式设计的容量规划和隔离策略失效，导致API错误率飙升，波及所有用户。相比之下，一些其他供应商（如GitLab）采用了更激进的**流量整形与隔离策略**：1）为AI和自动化工具建立独立的端点和资源队列；2）实施基于机器身份的严格速率限制和配额；3）在架构上将AI请求路径与关键路径（如代码推送、CI/CD触发）进行物理或逻辑隔离。GitHub事件的根本原因是**对非人类流量的增长模式与影响爆炸半径的低估**。工程启示：1）在容量规划中必须为AI/自动化负载建立独立模型；2）API网关需支持基于客户端类型（人类/AI）的动态策略；3）关键业务路径必须设置“保护性降级”开关，在负载超限时优先保障人类用户体验。此事件凸显了平台工程中流量治理的新维度。"
+commentary: "对云平台在AI时代面临的新挑战提供了极佳的案例研究。它揭示了传统SaaS架构在面对机器客户流量激增时的脆弱性，并指出了流量隔离与治理是未来平台可靠性的关键。"
 publishDate: "2026-05-25T01:28:18.000Z"
 ---
 
