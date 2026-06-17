@@ -1,19 +1,20 @@
 ---
 title: "Most Companies Wait Too Long to Declare Incidents"
-titleCn: "多数公司宣布事故的时间过晚"
+titleCn: "多数公司宣布事故过迟：降低事故宣布门槛的工程实践"
 url: "https://greatcircle.com/blog/2026/03/17/when-to-declare-an-incident/"
 issueNumber: 520
 issueDate: "2026-06-08T01:21:57.000Z"
 category: "on-call-response"
 tags:
-  - "事故宣布"
   - "事件响应"
-  - "SRE文化"
-  - "无指责文化"
+  - "事故宣布"
   - "MTTR"
+  - "无责复盘"
+  - "SRE文化"
 score: 8
 summary: "The real issue is that your company has made declaring an incident costly and risky for the person who does it. Brent Chapman"
-summaryCn: "本文指出，许多公司在宣布事故方面行动迟缓，其根本原因并非缺乏流程，而是组织文化使得宣布事故对执行者而言变得成本高昂、充满风险（例如可能被指责）。文章强调，建立一种鼓励早期、主动宣布事故的文化，对于快速响应、有效协同和减少MTTR（平均恢复时间）至关重要。应该让宣布事故成为一件“安全”且理所当然的事。"
-commentary: "这篇文章切中了SRE实践中的一个核心文化痛点。将事故宣布从“可能带来个人风险的决策”转变为“驱动响应的标准化流程”，是构建无指责文化和高效事件响应体系的关键第一步。具有很强的实践指导意义。"
+summaryCn: "延迟宣布事故（Incident）会显著增加MTTR、扩大爆炸半径并损害团队信任。根本原因在于公司文化将“宣布事故”与“失败”、“问责”绑定，导致工程师在不确定或早期阶段不愿或不敢启动事件响应流程。这违背了SRE核心原则：事故响应的目标是尽快恢复服务，而非追究责任。有效的工程实践是降低宣布门槛和成本：1) 定义清晰、客观的启动标准，如“违反关键SLO”、“影响超过X个用户”、“手动干预必要”，并将其工具化，支持一键启动；2) 建立“事故模拟”或“灰度事故”机制，鼓励在未完全确认影响时就启动流程，后续可降级或关闭；3) 文化上，将事故响应视为学习机会而非污点，通过Blameless Postmortem（无责复盘）强化这一理念。量化改进可跟踪“平均宣布延迟时间”、“事故扩大率”等指标。该实践尤其适用于高变化频率、复杂依赖关系的互联网服务。"
+commentary: "这篇文章直击事件响应流程中最关键但最软性的一环：宣布（Declaration）的时机与文化。它强调了将事故管理流程“产品化”、降低使用门槛的重要性，为优化MTTR提供了从文化到工具的完整思路，是SRE团队建设韧性文化的优秀指南。"
 publishDate: "2026-06-08T01:21:57.000Z"
 ---
+

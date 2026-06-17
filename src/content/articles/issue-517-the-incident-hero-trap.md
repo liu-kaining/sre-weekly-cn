@@ -1,6 +1,6 @@
 ---
 title: "The Incident Hero Trap"
-titleCn: "事故英雄陷阱"
+titleCn: "警惕事故“英雄”陷阱：从个人英雄主义到系统化韧性"
 url: "https://uptimelabs.io/articles/the-incident-hero-trap/"
 issueNumber: 517
 issueDate: "2026-05-18T02:29:57.000Z"
@@ -8,12 +8,13 @@ category: "on-call-response"
 tags:
   - "事故响应"
   - "团队文化"
-  - "知识沉淀"
-  - "流程优化"
-  - "组织韧性"
-score: 7
+  - "知识管理"
+  - "MTTR"
+  - "混沌工程"
+score: 8
 summary: "The old way: heroes in incident response are an anti-pattern. The new way: heroes are great and we should make as many heroes as we can. Hamed Silatani — Uptime Labs"
-summaryCn: "本文剖析了事故响应中“英雄主义文化”的利弊。作者Hamed Silatani挑战了“英雄是反模式”的传统观点，转而提出一种新的视角：英雄本身是宝贵的，我们应该致力于培养更多这样的英雄。文章讨论了如何将个人英雄的能力系统化、流程化，将个人的卓越表现转化为团队的集体能力和更强大的、可复现的系统韧性，避免团队对少数关键人物的过度依赖。"
-commentary: "这篇文章切中了SRE团队建设的核心痛点。它并非鼓励个人英雄主义，而是提出一个建设性的框架：如何从英雄身上学习，并将其能力沉淀为系统能力。这对于构建可持续的、不依赖个人的韧性组织至关重要，是事故管理和团队文化优化的实用指南。"
+summaryCn: "事故响应中的“英雄文化”是一个常见的反模式。它表现为少数经验丰富的工程师总是在关键时刻“力挽狂澜”，但这掩盖了系统性流程、工具和知识的缺失。其本质是组织将“应急恢复”的责任过度集中于个人，而非内化于系统。从SRE实践看，这会导致知识孤岛（Knowledge Silo）、MTTR（平均恢复时间）不稳定以及团队韧性下降。正确的路径不是消除“英雄”，而是将“英雄”的能力系统化。具体措施包括：1）建立清晰、可执行的事故指挥体系（如ICS）；2）通过详细的事故复盘（Post-mortem）将个人经验转化为可共享的运行手册（Runbook）和自动化脚本；3）投资于故障演练和混沌工程（Chaos Engineering），让更多成员在可控环境中积累应急经验。最终目标是构建一个“人人皆可为英雄”的系统，降低对特定个人的依赖，提升整体故障域（Failure Domain）的隔离和恢复能力。"
+commentary: "深刻剖析了故障处理文化中的一个关键陷阱。文章不仅指出了问题，更给出了从个人依赖转向系统韧性的可操作路径，对构建可持续的事故响应体系和健康的SRE文化具有直接的指导意义。"
 publishDate: "2026-05-18T02:29:57.000Z"
 ---
+
