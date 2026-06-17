@@ -2,26 +2,10 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
-import SearchFilter from '../components/SearchFilter.astro';
 
 const articles = (await getCollection('articles')).sort(
   (a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
 );
-
-const categories = [
-  { value: 'incident-report', label: '事故报告' },
-  { value: 'monitoring-observability', label: '监控可观测' },
-  { value: 'reliability-engineering', label: '可靠性工程' },
-  { value: 'platform-engineering', label: '平台工程' },
-  { value: 'devops-culture', label: 'DevOps文化' },
-  { value: 'chaos-engineering', label: '混沌工程' },
-  { value: 'on-call-response', label: '值班响应' },
-  { value: 'performance', label: '性能优化' },
-  { value: 'security-reliability', label: '安全可靠性' },
-  { value: 'misc', label: '其他' },
-];
-
-const allTags = [...new Set(articles.flatMap((a) => a.data.tags))];
 ---
 
 <BaseLayout title="首页">
@@ -37,29 +21,18 @@ const allTags = [...new Set(articles.flatMap((a) => a.data.tags))];
     </div>
   </section>
 
-  <SearchFilter categories={categories} allTags={allTags} />
-
   <div class="grid gap-4">
     {articles.map((article) => (
-      <div
-        data-article
-        data-title={article.data.title}
-        data-title-cn={article.data.titleCn}
-        data-summary={article.data.summaryCn}
-        data-category={article.data.category}
-        data-score={article.data.score}
-      >
-        <ArticleCard
-          id={article.id}
-          titleCn={article.data.titleCn}
-          title={article.data.title}
-          category={article.data.category}
-          tags={article.data.tags}
-          score={article.data.score}
-          summaryCn={article.data.summaryCn}
-          issueNumber={article.data.issueNumber}
-        />
-      </div>
+      <ArticleCard
+        id={article.id}
+        titleCn={article.data.titleCn}
+        title={article.data.title}
+        category={article.data.category}
+        tags={article.data.tags}
+        score={article.data.score}
+        summaryCn={article.data.summaryCn}
+        issueNumber={article.data.issueNumber}
+      />
     ))}
   </div>
 
