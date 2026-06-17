@@ -1,0 +1,24 @@
+---
+interface Props {
+  tags: { name: string; count: number }[];
+}
+
+const { tags } = Astro.props;
+const maxCount = Math.max(...tags.map((t) => t.count));
+---
+
+<div class="flex flex-wrap gap-2">
+  {tags.map((tag) => {
+    const size = 0.75 + (tag.count / maxCount) * 0.5;
+    return (
+      <a
+        href={`/tags/${tag.name}`}
+        class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full hover:bg-primary/10 hover:text-primary transition-colors"
+        style={`font-size: ${size}rem`}
+      >
+        {tag.name}
+        <span class="text-xs text-gray-400 ml-1">({tag.count})</span>
+      </a>
+    );
+  })}
+</div>

@@ -1,0 +1,86 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ScoreBadge from '../../components/ScoreBadge.astro';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+
+const categoryLabels: Record<string, string> = {
+  'incident-report': '事故报告',
+  'monitoring-observability': '监控可观测',
+  'reliability-engineering': '可靠性工程',
+  'platform-engineering': '平台工程',
+  'devops-culture': 'DevOps文化',
+  'chaos-engineering': '混沌工程',
+  'on-call-response': '值班响应',
+  'performance': '性能优化',
+  'security-reliability': '安全可靠性',
+  'misc': '其他',
+};
+---
+
+<BaseLayout title={article.data.titleCn}>
+  <div class="mb-6">
+    <a href="/" class="text-sm text-primary hover:underline">&larr; 返回首页</a>
+  </div>
+
+  <article class="max-w-3xl">
+    <header class="mb-8">
+      <div class="flex items-start gap-3 mb-3">
+        <h1 class="text-2xl font-bold leading-tight">{article.data.titleCn}</h1>
+        <ScoreBadge score={article.data.score} />
+      </div>
+      <p class="text-text-secondary text-sm mb-4">{article.data.title}</p>
+      <div class="flex flex-wrap items-center gap-3 text-sm">
+        <span class="px-2 py-0.5 bg-primary/10 text-primary rounded text-xs">
+          {categoryLabels[article.data.category] || article.data.category}
+        </span>
+        {article.data.tags.map((tag) => (
+          <a href={`/tags/${tag}`} class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-xs hover:bg-gray-200">
+            {tag}
+          </a>
+        ))}
+        <span class="text-text-secondary">|</span>
+        <a href={`/issues/${article.data.issueNumber}`} class="text-text-secondary hover:text-primary">
+          #{article.data.issueNumber}
+        </a>
+        <span class="text-text-secondary">|</span>
+        <span class="text-text-secondary">{new Date(article.data.publishDate).toLocaleDateString('zh-CN')}</span>
+      </div>
+    </header>
+
+    <section class="mb-8 p-4 bg-blue-50 rounded-lg border border-blue-100">
+      <h2 class="text-sm font-semibold text-blue-800 mb-2">AI 点评</h2>
+      <p class="text-sm text-blue-900">{article.data.commentary}</p>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-lg font-semibold mb-2">中文摘要</h2>
+      <p class="text-text-secondary leading-relaxed">{article.data.summaryCn}</p>
+    </section>
+
+    <section class="prose prose-slate max-w-none mb-8">
+      <Content />
+    </section>
+
+    <footer class="pt-6 border-t border-border">
+      <a
+        href={article.data.url}
+        class="inline-flex items-center gap-2 text-primary hover:underline"
+        target="_blank"
+        rel="noopener"
+      >
+        阅读原文 &rarr;
+      </a>
+    </footer>
+  </article>
+</BaseLayout>

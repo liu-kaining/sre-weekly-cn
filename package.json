@@ -1,0 +1,27 @@
+{
+  "name": "sre-weekly-cn",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "AI-driven Chinese content aggregation for SRE Weekly",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "fetch-rss": "node scripts/fetch-rss.mjs",
+    "process-articles": "node scripts/process-articles.mjs",
+    "sync": "node scripts/fetch-rss.mjs && node scripts/process-articles.mjs"
+  },
+  "dependencies": {
+    "astro": "^5.0.0",
+    "cheerio": "^1.0.0",
+    "openai": "^4.70.0",
+    "rss-parser": "^3.13.0",
+    "tailwindcss": "^4.0.0",
+    "@tailwindcss/vite": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0"
+  }
+}

@@ -1,0 +1,72 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import SearchFilter from '../components/SearchFilter.astro';
+
+const articles = (await getCollection('articles')).sort(
+  (a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
+);
+
+const categories = [
+  { value: 'incident-report', label: '事故报告' },
+  { value: 'monitoring-observability', label: '监控可观测' },
+  { value: 'reliability-engineering', label: '可靠性工程' },
+  { value: 'platform-engineering', label: '平台工程' },
+  { value: 'devops-culture', label: 'DevOps文化' },
+  { value: 'chaos-engineering', label: '混沌工程' },
+  { value: 'on-call-response', label: '值班响应' },
+  { value: 'performance', label: '性能优化' },
+  { value: 'security-reliability', label: '安全可靠性' },
+  { value: 'misc', label: '其他' },
+];
+
+const allTags = [...new Set(articles.flatMap((a) => a.data.tags))];
+---
+
+<BaseLayout title="首页">
+  <section class="mb-10">
+    <h1 class="text-3xl font-bold mb-2">SRE Weekly 中文版</h1>
+    <p class="text-text-secondary mb-4">AI驱动的SRE周刊内容聚合 — 每日自动翻译、评析、分类</p>
+    <div class="p-4 bg-blue-50 border border-blue-200 rounded-lg text-sm">
+      <p class="text-blue-900">
+        本站内容来源于 <a href="https://sreweekly.com" class="font-semibold text-primary hover:underline" target="_blank" rel="noopener">SRE Weekly (sreweekly.com)</a>，
+        由 AI 自动翻译并加以点评，仅供中文读者参考学习。
+        本站为非官方二次加工站点，建议同时关注 <a href="https://sreweekly.com" class="font-semibold text-primary hover:underline" target="_blank" rel="noopener">原站</a> 获取第一手英文内容。
+      </p>
+    </div>
+  </section>
+
+  <SearchFilter categories={categories} allTags={allTags} />
+
+  <div class="grid gap-4">
+    {articles.map((article) => (
+      <div
+        data-article
+        data-title={article.data.title}
+        data-title-cn={article.data.titleCn}
+        data-summary={article.data.summaryCn}
+        data-category={article.data.category}
+        data-score={article.data.score}
+      >
+        <ArticleCard
+          id={article.id}
+          titleCn={article.data.titleCn}
+          title={article.data.title}
+          category={article.data.category}
+          tags={article.data.tags}
+          score={article.data.score}
+          summaryCn={article.data.summaryCn}
+          issueNumber={article.data.issueNumber}
+        />
+      </div>
+    ))}
+  </div>
+
+  {articles.length === 0 && (
+    <div class="text-center py-16 text-text-secondary">
+      <p class="text-lg">暂无文章</p>
+      <p class="mt-2 text-sm">运行 <code class="bg-gray-100 px-2 py-0.5 rounded">npm run sync</code> 来获取最新内容</p>
+    </div>
+  )}
+</BaseLayout>

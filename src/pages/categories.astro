@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const articles = await getCollection('articles');
+
+const categoryLabels: Record<string, string> = {
+  'incident-report': '事故报告',
+  'monitoring-observability': '监控可观测',
+  'reliability-engineering': '可靠性工程',
+  'platform-engineering': '平台工程',
+  'devops-culture': 'DevOps文化',
+  'chaos-engineering': '混沌工程',
+  'on-call-response': '值班响应',
+  'performance': '性能优化',
+  'security-reliability': '安全可靠性',
+  'misc': '其他',
+};
+
+const categoryGroups = Object.entries(categoryLabels).map(([value, label]) => ({
+  value,
+  label,
+  count: articles.filter((a) => a.data.category === value).length,
+})).filter((c) => c.count > 0);
+---
+
+<BaseLayout title="分类">
+  <h1 class="text-3xl font-bold mb-6">文章分类</h1>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    {categoryGroups.map((cat) => (
+      <a
+        href={`/categories/${cat.value}`}
+        class="p-5 border border-border rounded-lg bg-surface hover:shadow-md transition-shadow"
+      >
+        <h2 class="font-semibold text-lg mb-1">{cat.label}</h2>
+        <p class="text-text-secondary text-sm">{cat.count} 篇文章</p>
+      </a>
+    ))}
+  </div>
+
+  {categoryGroups.length === 0 && (
+    <div class="text-center py-16 text-text-secondary">
+      <p class="text-lg">暂无分类</p>
+    </div>
+  )}
+</BaseLayout>

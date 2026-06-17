@@ -1,0 +1,42 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'SRE Weekly 中文版 - AI驱动的SRE周刊内容聚合' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title} | SRE Weekly CN</title>
+  </head>
+  <body class="bg-bg text-text min-h-screen">
+    <header class="border-b border-border bg-surface sticky top-0 z-50">
+      <nav class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+        <a href="/" class="text-xl font-bold text-primary">SRE Weekly CN</a>
+        <div class="flex gap-6 text-sm">
+          <a href="/issues" class="hover:text-primary transition-colors">期刊列表</a>
+          <a href="/categories" class="hover:text-primary transition-colors">分类</a>
+          <a href="/tags" class="hover:text-primary transition-colors">标签</a>
+        </div>
+      </nav>
+    </header>
+    <main class="max-w-6xl mx-auto px-4 py-8">
+      <slot />
+    </main>
+    <footer class="border-t border-border mt-16 py-8 text-center text-text-secondary text-sm">
+      <p>SRE Weekly CN - AI驱动的SRE周刊中文内容聚合</p>
+      <p class="mt-1">
+        数据来源: <a href="https://sreweekly.com" class="text-primary hover:underline">SRE Weekly</a>
+      </p>
+    </footer>
+  </body>
+</html>
