@@ -6,12 +6,41 @@ import ArticleCard from '../components/ArticleCard.astro';
 const articles = (await getCollection('articles')).sort(
   (a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
 );
+
+// 统计数据
+const totalArticles = articles.length;
+const categories = [...new Set(articles.map((a) => a.data.category))];
+const totalCategories = categories.length;
+const allTags = [...new Set(articles.flatMap((a) => a.data.tags))];
+const totalTags = allTags.length;
+const issues = [...new Set(articles.map((a) => a.data.issueNumber))];
+const totalIssues = issues.length;
 ---
 
 <BaseLayout title="首页">
   <section class="mb-10">
     <h1 class="text-3xl font-bold mb-2">SRE Weekly 中文版</h1>
-    <p class="text-text-secondary mb-4">AI驱动的SRE周刊内容聚合 — 每日自动翻译、评析、分类</p>
+    <p class="text-text-secondary mb-6">AI驱动的SRE周刊内容聚合 — 每日自动翻译、评析、分类</p>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div class="p-4 bg-surface border border-border rounded-lg text-center">
+        <div class="text-3xl font-bold text-primary">{totalArticles}</div>
+        <div class="text-sm text-text-secondary">篇文章</div>
+      </div>
+      <div class="p-4 bg-surface border border-border rounded-lg text-center">
+        <div class="text-3xl font-bold text-primary">{totalIssues}</div>
+        <div class="text-sm text-text-secondary">期周刊</div>
+      </div>
+      <div class="p-4 bg-surface border border-border rounded-lg text-center">
+        <div class="text-3xl font-bold text-primary">{totalCategories}</div>
+        <div class="text-sm text-text-secondary">个分类</div>
+      </div>
+      <div class="p-4 bg-surface border border-border rounded-lg text-center">
+        <div class="text-3xl font-bold text-primary">{totalTags}</div>
+        <div class="text-sm text-text-secondary">个标签</div>
+      </div>
+    </div>
+
     <div class="p-4 bg-blue-50 border border-blue-200 rounded-lg text-sm">
       <p class="text-blue-900">
         本站内容来源于 <a href="https://sreweekly.com" class="font-semibold text-primary hover:underline" target="_blank" rel="noopener">SRE Weekly (sreweekly.com)</a>，
