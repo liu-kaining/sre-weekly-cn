@@ -65,7 +65,7 @@ function generateArticleMarkdown(article, issueNumber, issueDate) {
     })
     .join('\n');
 
-  return `---\n${yaml}\n---\n\n${article.summaryCn}\n`;
+  return `---\n${yaml}\n---\n\n`;
 }
 
 function generateIssueMarkdown(issue, articleCount) {
