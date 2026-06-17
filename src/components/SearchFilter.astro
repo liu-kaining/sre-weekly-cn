@@ -9,12 +9,20 @@ const { categories, allTags } = Astro.props;
 
 <div id="search-filter" class="mb-8 space-y-4">
   <div class="flex flex-col sm:flex-row gap-3">
-    <input
-      type="text"
-      id="search-input"
-      placeholder="搜索文章标题或摘要..."
-      class="flex-1 px-4 py-2 border border-border rounded-lg bg-surface focus:outline-none focus:ring-2 focus:ring-primary/50"
-    />
+    <div class="flex flex-1 gap-2">
+      <input
+        type="text"
+        id="search-input"
+        placeholder="搜索文章标题或摘要..."
+        class="flex-1 px-4 py-2 border border-border rounded-lg bg-surface focus:outline-none focus:ring-2 focus:ring-primary/50"
+      />
+      <button
+        id="search-button"
+        class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50"
+      >
+        搜索
+      </button>
+    </div>
     <select
       id="category-filter"
       class="px-4 py-2 border border-border rounded-lg bg-surface focus:outline-none focus:ring-2 focus:ring-primary/50"
@@ -38,6 +46,7 @@ const { categories, allTags } = Astro.props;
 
 <script define:vars={{ allTags }}>
   const searchInput = document.getElementById('search-input');
+  const searchButton = document.getElementById('search-button');
   const categoryFilter = document.getElementById('category-filter');
   const scoreFilter = document.getElementById('score-filter');
   const articles = document.querySelectorAll('[data-article]');
@@ -63,6 +72,12 @@ const { categories, allTags } = Astro.props;
   }
 
   searchInput.addEventListener('input', filterArticles);
+  searchButton.addEventListener('click', filterArticles);
+  searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      filterArticles();
+    }
+  });
   categoryFilter.addEventListener('change', filterArticles);
   scoreFilter.addEventListener('change', filterArticles);
 </script>
