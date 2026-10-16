@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23282d27' d='M3 3h11v11H3zm15 0h11v11H18zM3 18h11v11H3z'/%3E%3Cpath fill='%23bb5836' d='M18 18h11v11H18z'/%3E%3C/svg%3E">
+  <meta name="description" content="面向服务端开发者的 DevOps 与研发效能平台完整指南。从需求、CI、制品、CD 到发布与运行，15 章正文，一页读懂完整交付链路。">
+  <title>从代码到交付 · DevOps 与研发效能平台指南</title>
+  <style>{{STYLES}}</style>
+  <script>
+    try {
+      const theme = localStorage.getItem('delivery-guide-theme');
+      if (theme === 'dark' || theme === 'light') document.documentElement.dataset.theme = theme;
+    } catch {}
+  </script>
+</head>
+<body class="at-cover">
+  <svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.4 14.5A8.8 8.8 0 0 1 9.5 3.6 8.8 8.8 0 1 0 20.4 14.5Z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M5 19l1.5-1.5M17.5 6.5 19 5"/></symbol>
+    <symbol id="i-print" viewBox="0 0 24 24"><path d="M7 8V3h10v5M7 17H4V9h16v8h-3M7 14h10v7H7Z"/><path d="M16 11h1"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 5v15M12 6C8 3 4 4 2 5v14c3-1 7-1 10 1 3-2 7-2 10-1V5c-2-1-6-2-10 1Z"/></symbol>
+  </svg>
+  <a class="skip-link" href="#chapter-01">跳到指南正文</a>
+
+  <button type="button" id="nav-scrim" class="nav-scrim" aria-label="关闭章节目录" hidden></button>
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#top" aria-label="交付指南首页">
+      <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+      <span class="brand-text">交付指南<span>THE DELIVERY GUIDE</span></span>
+    </a>
+    <div class="sidebar-heading"><span>阅读目录</span><span>15 CHAPTERS</span></div>
+    <nav class="chapter-navigation" aria-label="章节导航">{{NAVIGATION}}</nav>
+    <div class="sidebar-bottom">
+      <div class="completed-heading"><span><span class="completion-dot"></span> 我的阅读进度</span><span id="read-count">0 / 15</span></div>
+      <div class="completion-track"><div id="completion-fill"></div></div>
+      <p>理解流程，再把流程做成能力。</p>
+      <span class="sidebar-edition">FIELD NOTES · 2026 EDITION</span>
+    </div>
+  </aside>
+
+  <div class="page-shell">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button type="button" class="icon-button mobile-menu" id="menu-toggle" aria-label="打开章节目录" aria-controls="sidebar" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+        <a class="topbar-home" href="#top">DevOps / 研发效能</a>
+        <span class="breadcrumb-divider">/</span>
+        <span id="current-chapter">学习手册</span>
+      </div>
+      <div class="topbar-actions">
+        <button type="button" id="search-open" class="search-trigger" aria-label="搜索全文">
+          <svg><use href="#i-search"/></svg><span>搜索全文</span><kbd>/</kbd>
+        </button>
+        <span class="toolbar-divider"></span>
+        <button type="button" class="icon-button" id="theme-toggle" aria-label="切换深色模式" aria-pressed="false" title="切换阅读主题"><svg class="moon-icon"><use href="#i-moon"/></svg><svg class="sun-icon"><use href="#i-sun"/></svg></button>
+        <button type="button" class="icon-button print-button" id="print-guide" aria-label="打印完整指南" title="打印完整指南"><svg><use href="#i-print"/></svg></button>
+      </div>
+      <div class="scroll-track" aria-hidden="true"><div id="scroll-fill"></div></div>
+    </header>
+
+    <main id="main-content">
+      <section class="cover" id="top" aria-labelledby="cover-title">
+        <div class="cover-topline"><span><span class="edition-dot"></span> A FIELD GUIDE FOR BACKEND DEVELOPERS</span><span>VOL. 01 / 2026</span></div>
+        <div class="cover-grid">
+          <div class="cover-copy">
+            <p class="cover-eyebrow">服务端开发者的下一站</p>
+            <h1 id="cover-title">从一行代码，<br>到一次<span>可靠交付</span>。</h1>
+            <p class="cover-subtitle">DevOps · 研发效能平台完整指南</p>
+            <p class="cover-description">沿着一个功能的旅程，看懂需求、构建、部署与运行。<br class="desktop-break">把已有的后端经验，连接到平台工程的新世界。</p>
+            <div class="cover-actions">
+              <a class="button-primary" href="#chapter-01">开始阅读 <svg><use href="#i-arrow"/></svg></a>
+              <a class="button-text" href="#chapter-04">直达 CI / CD <span aria-hidden="true">↗</span></a>
+            </div>
+            <a id="resume-reading" class="resume-reading" href="#chapter-00" hidden>继续上次阅读 <span id="resume-label"></span><span aria-hidden="true">→</span></a>
+          </div>
+          <div class="cover-art" aria-label="代码经过构建、交付、运行并形成反馈">
+            <div class="art-kicker"><span class="status-dot"></span> DELIVERY IS A JOURNEY</div>
+            <svg class="journey-art" viewBox="0 0 480 355" role="img" aria-labelledby="journey-title" xmlns="http://www.w3.org/2000/svg">
+              <title id="journey-title">Code 到 Build 到 Deploy 到 Run，再反馈到开发</title>
+              <defs><pattern id="cover-dots" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".8" fill="currentColor" opacity=".14"/></pattern></defs>
+              <rect x="0" y="0" width="480" height="355" fill="url(#cover-dots)"/>
+              <path class="art-path" d="M64 104H235V237H412"/>
+              <path class="art-return" d="M411 237V312H65V105"/>
+              <path class="art-arrow" d="m405 230 8 7-8 7M58 112l7-8 7 8"/>
+              <circle cx="65" cy="104" r="8" class="art-point"/>
+              <circle cx="235" cy="104" r="8" class="art-point"/>
+              <circle cx="235" cy="237" r="8" class="art-point"/>
+              <circle cx="412" cy="237" r="8" class="art-point art-point-filled"/>
+              <g class="art-label"><text x="44" y="75">CODE</text><text x="211" y="75">BUILD</text><text x="202" y="278">DEPLOY</text><text x="398" y="278">RUN</text></g>
+              <g class="art-small"><text x="45" y="131">代码变更</text><text x="256" y="109">持续集成</text><text x="254" y="240">可信制品</text><text x="172" y="335">OBSERVE. LEARN. IMPROVE.</text></g>
+              <g class="art-terminal">
+                <rect x="286" y="30" width="167" height="119" rx="10"/>
+                <circle cx="301" cy="44" r="3"/><circle cx="313" cy="44" r="3"/><circle cx="325" cy="44" r="3"/>
+                <text x="301" y="72" class="terminal-prompt">$ ship with confidence</text>
+                <text x="301" y="95">✓ tests passed</text>
+                <text x="301" y="114">✓ version verified</text>
+                <text x="301" y="133" class="terminal-dim">→ ready for the next step</text>
+              </g>
+              <text x="91" y="205" class="art-annotation">每一步，都有证据。</text>
+            </svg>
+            <div class="art-footnote"><span>BUILD ON WHAT YOU KNOW.</span><span class="art-coordinate">31° N · ENGINEERING</span></div>
+          </div>
+        </div>
+        <div class="cover-facts">
+          <div><span class="fact-number">10</span><span>交付阶段<span>THE COMPLETE LIFECYCLE</span></span></div>
+          <div><span class="fact-number">15</span><span>完整章节<span>FROM CONCEPT TO PRACTICE</span></span></div>
+          <div><span class="fact-number">01</span><span>贯穿案例<span>ONE FEATURE, END TO END</span></span></div>
+          <p class="cover-for"><svg><use href="#i-book"/></svg><span>为有服务端经验的你而写<br><strong>从使用平台，到开发平台。</strong></span></p>
+        </div>
+      </section>
+
+      <section class="journey-section" aria-labelledby="journey-heading">
+        <div class="section-caption"><span>THE BIG PICTURE</span><span>先看全局，再深入每一步</span></div>
+        <div class="journey-heading-row"><h2 id="journey-heading">一个功能的完整旅程</h2><span class="legend"><span></span>重点掌握</span></div>
+        <div class="stage-grid">{{STAGES}}</div>
+        <div class="journey-note"><span class="note-arrow" aria-hidden="true">↳</span><p>阶段之间交接的是<strong>确定的版本与验证证据</strong>。上线之后，运行反馈会回到下一次需求。</p></div>
+      </section>
+
+      <div class="reader-intro">
+        <div><span class="section-caption">THE COMPLETE GUIDE</span><h2>从这里，开始深入。</h2></div>
+        <p>完整保留全部 15 章内容。<br>顺着读，也可以通过目录与搜索直达问题。</p>
+      </div>
+      <div class="reading-layout">
+        <div class="chapters">{{CHAPTERS}}</div>
+        <aside class="chapter-outline" aria-label="本章目录">
+          <div class="outline-sticky"><p class="outline-label">本章目录</p><p class="outline-current" id="outline-current">阅读入口</p><nav id="section-navigation" aria-label="章内导航"></nav><div class="outline-note"><span class="outline-dot"></span>边读边实践<br><span>把知识变成一次真实交付。</span></div></div>
+        </aside>
+      </div>
+      <footer class="page-footer"><a class="footer-brand" href="#top">THE DELIVERY GUIDE<span>从代码到交付</span></a><p>内容资料核对于 2026.10.16<br>完整单页 · 可离线阅读 · 持续学习</p><a href="#top">回到顶部 <span aria-hidden="true">↑</span></a></footer>
+    </main>
+  </div>
+
+  <dialog id="search-dialog" class="search-dialog" aria-labelledby="search-title">
+    <div class="search-dialog-top"><svg><use href="#i-search"/></svg><label for="search-input" class="sr-only" id="search-title">搜索指南全文</label><input id="search-input" type="search" placeholder="搜索概念、工具或问题，例如：幂等、灰度、CI…" autocomplete="off" spellcheck="false"><button type="button" id="search-close" aria-label="关闭搜索"><kbd>ESC</kbd></button></div>
+    <div class="search-meta"><span id="search-summary" role="status">输入关键词，搜索全部章节</span><span>全文检索</span></div>
+    <div class="search-results" id="search-results"></div>
+    <div class="search-dialog-footer"><span><kbd>↑</kbd><kbd>↓</kbd>选择 <kbd>↵</kbd>打开</span><span>15 章 · 全部正文</span></div>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <a href="#top" class="back-to-top" id="back-to-top" aria-label="回到顶部" title="回到顶部"><span aria-hidden="true">↑</span></a>
+  <script id="search-index" type="application/json">{{SEARCH_INDEX}}</script>
+  <script id="chapter-index" type="application/json">{{CHAPTER_INDEX}}</script>
+  <script>{{SCRIPT}}</script>
+</body>
+</html>
